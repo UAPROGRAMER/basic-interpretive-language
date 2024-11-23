@@ -1,0 +1,9 @@
+# dev related
+
+.vscode/
+
+# build
+
+build/
+dest/
+*.o
