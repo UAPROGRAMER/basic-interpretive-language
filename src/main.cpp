@@ -19,8 +19,8 @@ int main(int argc, char** argv)
 
     if (tokens.size() == 0)
         return 1;
-    
-    print_tokens(tokens);
+
+    print_tokens(tokens); 
     
     return 0;
 }
