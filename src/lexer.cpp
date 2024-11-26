@@ -25,11 +25,6 @@ vector<unique_ptr<Token>> Lexer::tokenize()
     {
         tokens.push_back(move(token));
         token = next_token();
-        if (token->type == TOKEN_ERROR)
-        {
-            tokens.clear();
-            return tokens;
-        }
     }
     
     tokens.push_back(move(token));
@@ -40,9 +35,6 @@ vector<unique_ptr<Token>> Lexer::tokenize()
 unique_ptr<Token> Lexer::next_token()
 {
     unique_ptr<Token> token;
-
-    token_column = column;
-    token_line = line;
 
     validation:
 
@@ -59,6 +51,8 @@ unique_ptr<Token> Lexer::next_token()
     if (current == '\0')
         return new_token(TOKEN_NOOP);
     
+    token_column = column;
+    token_line = line;
 
     if (isalpha(current) || current == '_')
         return tokenize_id();
@@ -76,8 +70,7 @@ unique_ptr<Token> Lexer::next_token()
             break;
         default:
             std::cerr << "[ERROR|LEXER]: unvalid character at " << column << ':' << line << ".\n";
-            token = new_token(TOKEN_ERROR);
-            break;
+            throw std::exception();
     }
 
     advance();
@@ -116,4 +109,10 @@ unique_ptr<Token> Lexer::tokenize_int()
     }
 
     return new_token(TOKEN_INT, valuebuff.str());
+}
+
+vector<unique_ptr<Token>> tokenize(string& sourcecode)
+{
+    Lexer lexer (sourcecode);
+    return lexer.tokenize();
 }

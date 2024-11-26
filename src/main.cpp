@@ -8,24 +8,28 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    string sourcecode = readfile(argv[1]);
+    string sourcecode;
 
-    if (sourcecode == "")
-        return 1;
-    
-    Lexer lexer (sourcecode);
+    try
+    {sourcecode = readfile(argv[1]);}
+    catch (...)
+    {return 1;}
 
-    vector<unique_ptr<Token>> tokens = lexer.tokenize();
+    vector<unique_ptr<Token>> tokens;
 
-    if (tokens.size() == 0)
-        return 1;
+    try
+    {tokens = tokenize(sourcecode);}
+    catch (...)
+    {return 1;}
 
-    //print_tokens(tokens);
+    vector<unique_ptr<AstNode>> astTree;
 
-    Parser parser (tokens);
+    try
+    {astTree = parse(tokens);}
+    catch (...)
+    {return 1;}
 
-    vector<unique_ptr<AstNode>> astTree = parser.parse();
-
+    print_tokens(tokens);
     print_ast_tree(astTree);
     
     return 0;
@@ -38,7 +42,7 @@ string readfile(char* filepath)
     if (!filestream)
     {
         std::cerr << "[ERROR|MAIN]: unable to access file (" << filepath << ").\n";
-        return "";
+        throw std::exception();
     }
 
     stringstream sourcecode;

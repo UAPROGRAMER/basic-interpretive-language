@@ -8,7 +8,7 @@ class Lexer
 {
     private:
 
-    const string sourcecode;
+    const string& sourcecode;
     char current;
     size_t index;
     size_t size;
@@ -20,7 +20,7 @@ class Lexer
 
     public:
 
-    Lexer(string _sourcecode):
+    Lexer(string& _sourcecode):
         sourcecode(_sourcecode),
         current('\0'),
         index((size_t)-1),
@@ -45,5 +45,7 @@ class Lexer
 
     unique_ptr<Token> tokenize_int();
 };
+
+vector<unique_ptr<Token>> tokenize(string& sourcecode);
 
 #endif

@@ -47,4 +47,6 @@ class Parser
     unique_ptr<AstNode> parse_return();
 };
 
+vector<unique_ptr<AstNode>> parse(vector<unique_ptr<Token>>& tokens);
+
 #endif

@@ -130,3 +130,9 @@ unique_ptr<AstNode> Parser::parse_return()
     advance();
     return make_unique_ast(new AstReturn(move(value)));
 }
+
+vector<unique_ptr<AstNode>> parse(vector<unique_ptr<Token>>& tokens)
+{
+    Parser parser (tokens);
+    return parser.parse();
+}

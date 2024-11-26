@@ -10,8 +10,7 @@ typedef enum
     TOKEN_INT,
     TOKEN_EQUAL,
     TOKEN_SEMI,
-    TOKEN_NOOP,
-    TOKEN_ERROR
+    TOKEN_NOOP 
 } TokenType;
 
 static const vector<string> TokenKeywords = {"var", "return"};
