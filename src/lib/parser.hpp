@@ -10,7 +10,7 @@ class Parser
 {
     private:
 
-    vector<unique_ptr<Token>> tokens;
+    vector<unique_ptr<Token>>& tokens;
     size_t index;
     Token* current;
 
@@ -20,13 +20,15 @@ class Parser
         tokens(_tokens),
         index((size_t)-1),
         current(nullptr)
-    {}
+    {
+        advance();
+    }
 
     void advance();
 
-    bool check();
+    void check(TokenType type) const;
 
-    bool expect();
+    void expect(TokenType type);
 
     vector<unique_ptr<AstNode>> parse();
 

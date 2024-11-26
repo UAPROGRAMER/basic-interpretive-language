@@ -19,7 +19,7 @@ string Token::gettypestr() const
 
 void Token::print() const
 {
-    std::cout << '(' << gettypestr() << ", " << (value!="" ? value : string("null")) << ")\n";
+    std::cout << '(' << gettypestr() << ", " << (value!="" ? value : string("null")) << ", " << column << ':' << line << ")\n";
 }
 
 unique_ptr<Token> make_unique_token(TokenType type, size_t column, size_t line, string value)

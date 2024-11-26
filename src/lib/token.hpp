@@ -14,7 +14,7 @@ typedef enum
     TOKEN_ERROR
 } TokenType;
 
-static const vector<string> TokenKeywords = {"var", "return", "print"};
+static const vector<string> TokenKeywords = {"var", "return"};
 
 class Token
 {

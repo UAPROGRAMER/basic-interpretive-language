@@ -21,6 +21,8 @@ class AstNode
     AstType type;
 
     virtual ~AstNode() = default;
+
+    virtual void print() const = 0;
 };
 
 class AstVardef : public AstNode
@@ -37,6 +39,13 @@ class AstVardef : public AstNode
         name(_name),
         value(move(_value))
     {}
+
+    void print() const
+    {
+        std::cout << "(type: " << type << ", name: " << name << ", value: ";
+        value->print();
+        std::cout << ")";
+    }
 };
 
 class AstVarset : public AstNode
@@ -53,6 +62,13 @@ class AstVarset : public AstNode
         name(_name),
         value(move(_value))
     {}
+
+    void print() const
+    {
+        std::cout << "(type: " << type << ", name: " << name << ", value: ";
+        value->print();
+        std::cout << ")";
+    }
 };
 
 class AstVarcal : public AstNode
@@ -67,6 +83,11 @@ class AstVarcal : public AstNode
         type(AST_VARCAL),
         name(_name)
     {}
+
+    void print() const
+    {
+        std::cout << "(type: " << type << ", name: " << name << ")";
+    }
 };
 
 class AstInt : public AstNode
@@ -80,6 +101,11 @@ class AstInt : public AstNode
     AstInt(long _value):
         value(_value)
     {}
+
+    void print() const 
+    {
+        std::cout << "(type: " << type << ", value: " << value << ")";
+    }
 };
 
 class AstReturn : public AstNode
@@ -91,10 +117,20 @@ class AstReturn : public AstNode
     unique_ptr<AstNode> value;
 
     AstReturn(unique_ptr<AstNode> _value):
+        type(AST_RETURN),
         value(move(_value))
     {}
+
+    void print() const
+    {
+        std::cout << "(type: " << type << ", value: ";
+        value->print();
+        std::cout << ")";
+    }
 };
 
 unique_ptr<AstNode> make_unique_ast(AstNode* astnode);
+
+void print_ast_tree(vector<unique_ptr<AstNode>>& astTree);
 
 #endif

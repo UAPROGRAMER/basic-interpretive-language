@@ -4,6 +4,8 @@
 #include "includes.hpp"
 #include "token.hpp"
 #include "lexer.hpp"
+#include "ast.hpp"
+#include "parser.hpp"
 
 string readfile(char* filepath);
 

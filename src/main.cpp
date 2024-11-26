@@ -20,7 +20,13 @@ int main(int argc, char** argv)
     if (tokens.size() == 0)
         return 1;
 
-    print_tokens(tokens); 
+    //print_tokens(tokens);
+
+    Parser parser (tokens);
+
+    vector<unique_ptr<AstNode>> astTree = parser.parse();
+
+    print_ast_tree(astTree);
     
     return 0;
 }
